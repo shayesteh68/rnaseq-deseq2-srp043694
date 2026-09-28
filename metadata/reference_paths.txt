@@ -1,0 +1,3 @@
+FASTA=E:\bioinformatics_work\digital_home\rna_project\reference\Homo_sapiens.GRCh38.dna.primary_assembly.fa
+GTF=E:\bioinformatics_work\digital_home\data\reference\Homo_sapiens.GRCh38.110.gtf
+HISAT2_INDEX_PREFIX=E:\bioinformatics_work\digital_home\rna_project\reference\Homo_sapiens_index

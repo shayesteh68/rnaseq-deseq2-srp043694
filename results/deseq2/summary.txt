@@ -1,0 +1,7 @@
+=== DESeq2 Analysis Summary ===
+Total genes after low-count filtering: 23551
+Significant DEGs (padj < 0.05, |log2FC| >= 1): 136
+Upregulated in SIM: 52
+Downregulated in SIM: 84
+Design: ~ condition
+Contrast: SIM vs LGD (Ref: LGD)

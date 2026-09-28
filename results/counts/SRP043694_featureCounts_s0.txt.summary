@@ -1,0 +1,15 @@
+Status	data/aligned_bam/SRR1502799.sorted.bam	data/aligned_bam/SRR1502800.sorted.bam	data/aligned_bam/SRR1502801.sorted.bam	data/aligned_bam/SRR1502802.sorted.bam	data/aligned_bam/SRR1502803.sorted.bam	data/aligned_bam/SRR1502804.sorted.bam	data/aligned_bam/SRR1502805.sorted.bam	data/aligned_bam/SRR1502806.sorted.bam	data/aligned_bam/SRR1502807.sorted.bam	data/aligned_bam/SRR1502808.sorted.bam	data/aligned_bam/SRR1502809.sorted.bam	data/aligned_bam/SRR1502810.sorted.bam	data/aligned_bam/SRR1502811.sorted.bam	data/aligned_bam/SRR1502812.sorted.bam
+Assigned	14558530	12159117	1958733	534038	21297588	41917165	40428034	46569173	48568588	43548611	8917890	29560096	17402049	45412166
+Unassigned_Unmapped	505251	348842	57889	15860	700970	1304385	1062119	1453865	1134292	1461533	439776	947163	621038	1477296
+Unassigned_Read_Type	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Unassigned_Singleton	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Unassigned_MappingQuality	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Unassigned_Chimera	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Unassigned_FragmentLength	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Unassigned_Duplicate	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Unassigned_MultiMapping	2920251	2192573	403780	96940	4517368	9064926	9378912	8692776	8863791	7900192	3461102	6575558	3648296	9403425
+Unassigned_Secondary	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Unassigned_NonSplit	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Unassigned_NoFeatures	2032869	965768	232474	47966	2000462	5066703	6460041	3868219	4215877	5157545	648994	2951767	2077629	5885222
+Unassigned_Overlapping_Length	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Unassigned_Ambiguity	1168295	1044296	164138	46521	1838266	3464128	3342037	3909292	4434388	3831507	754568	2421632	1425421	3617145

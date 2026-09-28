@@ -1,0 +1,15 @@
+sample_id	condition	run_accession	fastq_1	fastq_2
+SRR1502799	LGD	SRR1502799	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/009/SRR1502799/SRR1502799_1.fastq.gz	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/009/SRR1502799/SRR1502799_2.fastq.gz
+SRR1502800	LGD	SRR1502800	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/000/SRR1502800/SRR1502800_1.fastq.gz	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/000/SRR1502800/SRR1502800_2.fastq.gz
+SRR1502801	LGD	SRR1502801	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/001/SRR1502801/SRR1502801_1.fastq.gz	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/001/SRR1502801/SRR1502801_2.fastq.gz
+SRR1502802	LGD	SRR1502802	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/002/SRR1502802/SRR1502802_1.fastq.gz	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/002/SRR1502802/SRR1502802_2.fastq.gz
+SRR1502803	LGD	SRR1502803	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/003/SRR1502803/SRR1502803_1.fastq.gz	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/003/SRR1502803/SRR1502803_2.fastq.gz
+SRR1502804	LGD	SRR1502804	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/004/SRR1502804/SRR1502804_1.fastq.gz	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/004/SRR1502804/SRR1502804_2.fastq.gz
+SRR1502805	LGD	SRR1502805	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/005/SRR1502805/SRR1502805_1.fastq.gz	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/005/SRR1502805/SRR1502805_2.fastq.gz
+SRR1502806	SIM	SRR1502806	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/006/SRR1502806/SRR1502806_1.fastq.gz	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/006/SRR1502806/SRR1502806_2.fastq.gz
+SRR1502807	SIM	SRR1502807	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/007/SRR1502807/SRR1502807_1.fastq.gz	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/007/SRR1502807/SRR1502807_2.fastq.gz
+SRR1502808	SIM	SRR1502808	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/008/SRR1502808/SRR1502808_1.fastq.gz	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/008/SRR1502808/SRR1502808_2.fastq.gz
+SRR1502809	SIM	SRR1502809	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/009/SRR1502809/SRR1502809_1.fastq.gz	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/009/SRR1502809/SRR1502809_2.fastq.gz
+SRR1502810	SIM	SRR1502810	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/010/SRR1502810/SRR1502810_1.fastq.gz	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/010/SRR1502810/SRR1502810_2.fastq.gz
+SRR1502811	SIM	SRR1502811	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/011/SRR1502811/SRR1502811_1.fastq.gz	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/011/SRR1502811/SRR1502811_2.fastq.gz
+SRR1502812	SIM	SRR1502812	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/012/SRR1502812/SRR1502812_1.fastq.gz	ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/012/SRR1502812/SRR1502812_2.fastq.gz

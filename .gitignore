@@ -1,0 +1,20 @@
+# Raw and massive sequencing data
+data/
+qc/
+*.fastq.gz
+*.fq.gz
+*.bam
+*.sam
+*.bai
+*.tar.gz
+*.zip
+
+# Intermediate workflow logs and cache
+logs/
+.snakemake/
+.RData
+.Rhistory
+
+# OS metadata
+.DS_Store
+Thumbs.db
