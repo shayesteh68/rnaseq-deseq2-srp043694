@@ -88,16 +88,20 @@ From **23,551** quantified genes passing independent pre-filtering:
 │       ├── enrichment_GO_BP_dotplot.png
 │       └── enrichment_KEGG_dotplot.png
 └── README.md
+
 💻 Environment & Reproducibility
 R Version: >= 4.3.0
 Key Packages: DESeq2, clusterProfiler, org.Hs.eg.db, enrichplot, ggplot2
 Managed via Miniforge/Mamba environment.
-bash
+
+```bash
 # Clone the repository
 git clone https://github.com/shayesteh68/rnaseq-deseq2-srp043694.git
 cd rnaseq-deseq2-srp043694
 
 # Run Enrichment Analysis
 Rscript scripts/run_enrichment.R
+```
+
 Author: Narges Shayesteh
 
