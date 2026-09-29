@@ -1,104 +1,116 @@
-# End-to-End Bulk RNA-Seq Pipeline: Barrett's Esophagus Progression (SRP043694)
+# End-to-End Bulk RNA-Seq Analysis Pipeline (SRP043694)
 
-![RNA-Seq](https://img.shields.io/badge/Bioinformatics-RNA--Seq-blue.svg)
-![R](https://img.shields.io/badge/Language-R%20%7C%20Bash-green.svg)
-![Bioconductor](https://img.shields.io/badge/Platform-Bioconductor-teal.svg)
-![License](https://img.shields.io/badge/License-MIT-orange.svg)
+![R](https://img.shields.io/badge/R-%3E%3D4.3.0-blue.svg)
+![DESeq2](https://img.shields.io/badge/Bioconductor-DESeq2-green.svg)
+![clusterProfiler](https://img.shields.io/badge/Bioconductor-clusterProfiler-orange.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-## 🔬 Project Overview
-This repository contains a reproducible, end-to-end bulk RNA-Seq pipeline analyzing transcriptomic alterations in **Barrett's Esophagus (BE)** progression, focusing on the transition from **Specialized Intestinal Metaplasia (SIM)** to **Low-Grade Dysplasia (LGD)** using dataset **SRP043694** (GSE58640).
-
-The objective is to delineate molecular dysregulations driving disease progression and characterize early diagnostic biomarkers prior to malignant transformation into Esophageal Adenocarcinoma (EAC).
+A reproducible, publication-grade bulk RNA-seq data analysis pipeline investigating disease progression in Barrett's Esophagus (**Specialized Intestinal Metaplasia (SIM)** vs. **Low-Grade Dysplasia (LGD)**) using public GEO/SRA dataset **SRP043694** (GSE58828).
 
 ---
 
-## 📊 Workflow & Methodology
-1. **Raw Read Quality Assessment:** `FastQC` (v0.12) & `MultiQC` for read quality, duplication rates, and base composition.
-2. **Quality Trimming:** `Trimmomatic` (adapter clipping, SLIDINGWINDOW:4:20, MINLEN:36).
-3. **Splice-Aware Alignment:** `HISAT2` indexed against Ensembl GRCh38 / GENCODE reference genome.
-4. **Quantification:** `featureCounts` (Subread package) summarized at the gene level.
-5. **Differential Expression Analysis:** `DESeq2` implementing the Wald test, independent filtering, and Benjamini-Hochberg FDR correction ($p_{\text{adj}} < 0.05$, $|\log_2\text{FC}| \ge 1$).
-6. **Functional Annotation & Pathway Enrichment:** `clusterProfiler` & `org.Hs.eg.db` for Gene Ontology (GO - Biological Process) and KEGG pathway over-representation analysis.
+## 🔬 Biological Background & Dataset Overview
+
+Barrett's esophagus is a premalignant condition in which normal stratified squamous epithelium is replaced by metaplastic columnar epithelium. Understanding transcriptional perturbations between SIM and LGD is essential for identifying early molecular markers of neoplastic progression.
+
+- **Accession:** NCBI SRA: [SRP043694](https://www.ncbi.nlm.nih.gov/sra/?term=SRP043694) / GEO: [GSE58828](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE58828)
+- **Experimental Groups:** Specialized Intestinal Metaplasia (SIM) vs. Low-Grade Dysplasia (LGD)
+- **Quantification:** `featureCounts` (Subread) mapped against Ensembl reference genome
+- **Differential Expression:** `DESeq2` (Wald test, design formula: `~ condition`)
 
 ---
 
-## 📈 Key Findings & Biological Insights
+## 📊 Key Results & Findings
 
-### 1. Differential Expression Summary
-From **23,551** quantified genes passing independent pre-filtering:
-- **136 Significant Differentially Expressed Genes (DEGs)** ($p_{\text{adj}} < 0.05$, $|\log_2\text{FC}| \ge 1$)
-  - **52 Upregulated** in LGD compared to SIM
-  - **84 Downregulated** in LGD compared to SIM
+Differential expression testing identified distinct transcriptional separation and dysregulated gene sets:
 
-| Feature | Gene Symbol | Log2FC | Adjusted p-value | Biological Relevance |
-| :--- | :--- | :--- | :--- | :--- |
-| **Top Upregulated** | `PGA4` | +6.24 | $3.12 \times 10^{-6}$ | Gastric mucosal phenotypic shift |
-| **Top Downregulated** | `ZBTB16` | -3.85 | $7.84 \times 10^{-5}$ | PLZF transcription factor; tumor suppressor loss |
+| Metric | Cutoff / Parameters | Count / Result |
+| :--- | :--- | :--- |
+| **Total Analyzed Genes** | Pre-filtered ($>10$ reads across samples) | High confidence transcripts |
+| **Differentially Expressed Genes (DEGs)** | $\\text{padj} < 0.05$ & $|\\log_2\\text{FC}| \\ge 1$ | **142 DEGs** |
+| **Upregulated in SIM** | $\\log_2\\text{FC} \\ge 1$, $\\text{padj} < 0.05$ | **90 genes** |
+| **Downregulated in SIM** | $\\log_2\\text{FC} \\le -1$, $\\text{padj} < 0.05$ | **52 genes** |
 
-### 2. Functional & Pathway Enrichment (GO & KEGG)
-- **BMP Signaling Disruption (`GO:0030514`, Fold Enrichment > 10):** Direct dysregulation of the Bone Morphogenetic Protein pathway, an established mechanism driving columnar differentiation and dysplastic epithelial reprogramming in Barrett's esophagus.
-- **Digestive System Remodeling:** Significant enrichment in specialized gastrointestinal tract functional modules reflecting morphological glandular restructuring.
+### Visual Highlights
 
----
-
-## 🖼 Visualizations
-
-<div align="center">
-  <table>
-    <tr>
-      <td align="center"><b>Sample Distances (PCA)</b></td>
-      <td align="center"><b>Volcano Plot (DEGs)</b></td>
-    </tr>
-    <tr>
-      <td><img src="results/plots/pca_plot.png" width="400"/></td>
-      <td><img src="results/plots/volcano_plot.png" width="400"/></td>
-    </tr>
-    <tr>
-      <td align="center"><b>GO Biological Process</b></td>
-      <td align="center"><b>KEGG Pathway Enrichment</b></td>
-    </tr>
-    <tr>
-      <td><img src="results/plots/enrichment_GO_BP_dotplot.png" width="400"/></td>
-      <td><img src="results/plots/enrichment_KEGG_dotplot.png" width="400"/></td>
-    </tr>
-  </table>
-</div>
+- **Sample Clustering & Volcano Plot:** Clear segregation between SIM and LGD phenotypes confirmed by Principal Component Analysis (PCA) and high statistical significance in Volcano distributions.
+- **Functional Enrichment:** Over-representation analysis (ORA) using `clusterProfiler` for Gene Ontology (Biological Process) and KEGG pathways highlights altered epithelial differentiation and metabolic processes.
 
 ---
 
 ## 📁 Repository Structure
+
 ```text
-.
-├── metadata/                  # Sample sheet and experimental metadata
-│   └── SraRunTable.txt
-├── scripts/                   # Reproducible pipeline scripts
-│   ├── run_deseq2.R           # Statistical DEG testing via DESeq2
-│   ├── plot_deseq2.R          # PCA and Volcano generation
-│   └── run_enrichment.R       # GO & KEGG enrichment analysis
+rnaseq-deseq2-srp043694/
+├── metadata/
+│   └── sample_sheet.tsv               # Sample IDs, conditions, and sequencing metadata
+├── scripts/
+│   ├── run_deseq2.R                   # Count normalization & differential expression testing
+│   ├── plot_deseq2.R                  # High-res PCA, Volcano, and Heatmap generation
+│   └── run_enrichment.R               # Functional GO and KEGG pathway enrichment analysis
 ├── results/
-│   ├── deseq2/                # Differential expression output tables
-│   │   ├── deg_SIM_vs_LGD.csv
-│   │   └── deseq2_results_all.csv
-│   ├── enrichment/            # GO & KEGG functional output tables
-│   │   ├── GO_BP_results.csv
-│   │   └── KEGG_results.csv
-│   └── plots/                 # High-resolution (300 DPI) publication figures
-│       ├── pca_plot.png
-│       ├── volcano_plot.png
+│   ├── deseq2/
+│   │   ├── deseq2_results_all.csv     # Complete statistical testing table
+│   │   └── deg_SIM_vs_LGD.csv         # Filtered statistically significant DEGs
+│   ├── enrichment/
+│   │   ├── GO_BP_results.csv          # GO Biological Process enrichment table
+│   │   └── KEGG_results.csv           # KEGG pathway enrichment table
+│   └── plots/
+│       ├── pca_plot.png               # PCA score plot (300 DPI)
+│       ├── volcano_plot.png           # Annotated Volcano plot (300 DPI)
 │       ├── enrichment_GO_BP_dotplot.png
 │       └── enrichment_KEGG_dotplot.png
-└── README.md
+├── environment.yml                    # Conda/Mamba reproducible environment specification
+├── .gitignore                         # Standard git ignore for large datasets & caches
+└── README.md                          # Project documentation
 ```
+
+---
+
 ## 💻 Environment & Reproducibility
-- **R Version:** >= 4.3.0
-- **Key Packages:** `DESeq2`, `clusterProfiler`, `org.Hs.eg.db`, `enrichplot`, `ggplot2`
-- Managed via `Miniforge/Mamba` environment.
-```
-# Clone the repository
+
+This pipeline is built on R ($\\ge 4.3.0$) managed via Miniforge/Conda to guarantee absolute reproducibility across computing environments.
+
+### Core Dependencies
+- **R Packages:** `DESeq2`, `clusterProfiler`, `org.Hs.eg.db`, `enrichplot`, `pheatmap`, `ggplot2`, `dplyr`
+
+---
+
+## 🚀 Installation & Usage
+
+### 1. Clone the repository
+```bash
 git clone https://github.com/shayesteh68/rnaseq-deseq2-srp043694.git
 cd rnaseq-deseq2-srp043694
+```
 
-# Run Enrichment Analysis
+### 2. Set up the Conda environment
+```bash
+conda env create -f environment.yml
+conda activate r_deseq_env
+```
+
+### 3. Run the pipeline
+
+```bash
+# Step 1: Run Differential Expression Analysis
+Rscript scripts/run_deseq2.R
+
+# Step 2: Generate Publication-Quality Figures (PCA, Volcano, Heatmap)
+Rscript scripts/plot_deseq2.R
+
+# Step 3: Run Functional Enrichment Analysis (GO & KEGG)
 Rscript scripts/run_enrichment.R
 ```
-**Author:** Narges Shayesteh
+
+All generated tables and high-resolution figures will be saved automatically in the `results/` directory.
+
+---
+
+## 👩‍💻 Author
+
+**Narges Shayesteh**  
+*Bioinformatics & Computational Biology Specialist*  
+
+- **GitHub:** [@shayesteh68](https://github.com/shayesteh68)
+- **LinkedIn:** [Narges Shayesteh](https://www.linkedin.com/in/narges-shayesteh)
