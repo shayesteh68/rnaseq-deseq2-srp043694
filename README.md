@@ -114,8 +114,6 @@ All generated tables and high-resolution figures will be saved automatically in 
 
 - **GitHub:** [@shayesteh68](https://github.com/shayesteh68)
 - **LinkedIn:** [Narges Shayesteh](https://www.linkedin.com/in/narges-shayesteh)
-
-
 ## Visualizations & Results
 
 <p align="center">
@@ -126,3 +124,7 @@ All generated tables and high-resolution figures will be saved automatically in 
   <img src="results/plots/enrichment_GO_BP_dotplot.png" width="48%" alt="GO Enrichment" />
   <img src="results/plots/enrichment_KEGG_dotplot.png" width="48%" alt="KEGG Pathway" />
 </p>
+
+---
+
+
