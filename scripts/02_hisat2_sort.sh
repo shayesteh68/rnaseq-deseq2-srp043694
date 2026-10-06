@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PROJECT="/mnt/f/RNAseq_SRP043694"
+PROJECT="${PROJECT:?set PROJECT to your RNAseq_SRP043694 directory}"
 TRIMMED="${PROJECT}/data/trimmed_fastq"
 ALIGN="${PROJECT}/data/aligned_bam"
 LOGS="${PROJECT}/logs/hisat2"
 
-INDEX="/mnt/e/bioinformatics_work/digital_home/rna_project/reference/Homo_sapiens_index"
+INDEX="${HISAT2_INDEX:?set HISAT2_INDEX}"
 THREADS=4
 
 mkdir -p "$ALIGN" "$LOGS"

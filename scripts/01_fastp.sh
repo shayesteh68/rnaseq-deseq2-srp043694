@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PROJECT="/mnt/f/RNAseq_SRP043694"
+PROJECT="${PROJECT:?set PROJECT to your RNAseq_SRP043694 directory}"
 RAW="${PROJECT}/raw_fastq"
 TRIMMED="${PROJECT}/data/trimmed_fastq"
 FASTP_QC="${PROJECT}/qc/fastp"
