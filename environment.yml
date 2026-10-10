@@ -1,0 +1,13 @@
+name: bulk-rnaseq-env
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - r-base>=4.3
+  - bioconductor-deseq2
+  - bioconductor-clusterprofiler
+  - bioconductor-org.hs.eg.db
+  - r-pheatmap
+  - r-ggplot2
+  - r-enhancedvolcano

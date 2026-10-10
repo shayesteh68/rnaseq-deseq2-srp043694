@@ -1,6 +1,6 @@
 # 🧬 End-to-End Bulk RNA-Seq Analysis Pipeline (SRP043694)
 
-![Pipeline Status](https://img.shields.io/badge/Pipeline-Production--Ready-success?style=for-the-badge&logo=snakemake)
+![Pipeline Status](https://img.shields.io/badge/Pipeline-Production--Ready-success?style=for-the-badge&logo=gnubash)
 ![R Version](https://img.shields.io/badge/R-4.3%2B-blue?style=for-the-badge&logo=r)
 ![Bioconductor](https://img.shields.io/badge/Bioconductor-DESeq2-brightgreen?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-orange?style=for-the-badge)
