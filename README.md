@@ -7,88 +7,94 @@
 
 A robust, reproducible, and automated bulk RNA-Seq pipeline for Differential Expression Analysis (DEA) and functional pathway enrichment, profiling disease progression in **Barrett's Esophagus** ($n = 14$).
 
-## 🔬 Dataset & Experimental Context
+## Key Results
 
-* **NCBI SRA Accession:** `SRP043694`
-* **Study Cohort:** 14 paired/grouped human endoscopic biopsy profiles representing Barrett's Esophagus histological stages.
-* **Primary Contrast:** Specialized Intestinal Metaplasia (**SIM**) vs. Low-Grade Dysplasia (**LGD**).
-* **Reference Genome:** GRCh38 / Ensembl Release 109.
+| Finding | Result |
+| --- | --- |
+| Total Features Filtered | 24,115 genes |
+| Statistically Significant DEGs | 142 genes |
+| Upregulated in SIM | 90 genes |
+| Downregulated in SIM | 52 genes |
+| Top Enriched GO Terms | Keratinization, Epithelial Development |
+| Top KEGG Pathways | ECM-receptor interaction, Focal adhesion |
 
----
-
-## 📈 Key Quantitative Discoveries
-
-| Metric / Analysis | Value / Finding | Interpretation |
-| :--- | :--- | :--- |
-| **Total Features Filtered** | 24,115 genes | Pre-filtered ($>10$ read counts across $\ge 3$ samples) |
-| **Statistically Significant DEGs** | **142 genes** | Threshold: $|\log_2\text{FC}| \ge 1.0$, $p_{\text{adj}} < 0.05$ (BH FDR) |
-| **Upregulated in SIM** | **90 genes** | Epithelial differentiation & barrier markers |
-| **Downregulated in SIM** | **52 genes** | Dysplasia-associated & cell-cycle deregulation markers |
-| **Top Enriched GO Terms** | Keratinization, Epithelial Development | Confirms phenotypic mucosal remodeling |
-| **Top KEGG Pathways** | ECM-receptor interaction, Focal adhesion | Structural/cytoskeletal reorganization |
-
----
-
-## 📁 Repository Architecture
+## Repository Structure
 
 ```text
-RNAseq_SRP043694/
-├── metadata/
-│   └── samples.csv                 # Sample annotations & clinical phenotype metadata
+.
 ├── scripts/
-│   ├── 01_deseq2_analysis.R        # Normalization, dispersion estimation & DEA
-│   ├── 02_pathway_enrichment.R     # ClusterProfiler (GO BP, MF, CC & KEGG)
-│   └── 03_generate_publication_plots.R # Volcano, PCA, MA & Heatmap generator
-├── results/
-│   ├── tables/                     # Full & filtered DEG tables (TSV/CSV)
-│   └── plots/                      # 300+ DPI publication figures
-├── environment.yml                # Conda / Mamba reproducible environment
-├── LICENSE
+│   ├── 01_fastp.sh
+│   ├── 02_hisat2_sort.sh
+│   ├── config.example.sh
+│   ├── run_deseq2.R
+│   ├── run_enrichment.R
+│   └── plot_deseq2.R
+├── plots/
+│   ├── pca.png
+│   ├── volcano.png
+│   ├── ma.png
+│   └── heatmap_top_genes.png
+├── tables/
 └── README.md
 ```
 
----
+## Requirements
 
-## ⚙️ Installation & Usage
+- Bash
+- R 4.3 or later
+- Bioconductor and DESeq2
+- fastp
+- HISAT2 and samtools
+- R packages required by the analysis and enrichment scripts
 
-### 1. Clone & Set Up Environment
+## Execution
+
+Run the commands from the repository root. Configure paths, sample information, reference genome, and annotation in a local copy of `scripts/config.example.sh` before running the upstream processing scripts.
+
+### 1. Configure and run read quality control
+
 ```bash
-git clone https://github.com/shayesteh68/rnaseq-deseq2-srp043694.git
-cd rnaseq-deseq2-srp043694
-
-# Create conda environment
-conda env create -f environment.yml
-conda activate bulk-rnaseq-env
+cp scripts/config.example.sh scripts/config.sh
+# Edit scripts/config.sh for your input files, output directories, and reference settings.
+bash scripts/01_fastp.sh
 ```
 
-### 2. Execute Full Workflow
+### 2. Align reads and sort alignments
+
 ```bash
-# Run Differential Expression Analysis
-Rscript scripts/01_deseq2_analysis.R
-
-# Run Functional Enrichment Analysis
-Rscript scripts/02_pathway_enrichment.R
-
-# Generate Figures
-Rscript scripts/03_generate_publication_plots.R
+bash scripts/02_hisat2_sort.sh
 ```
 
----
+### 3. Run differential expression, enrichment, and visualization
 
-## Visualizations & Results
+```bash
+Rscript scripts/run_deseq2.R
+Rscript scripts/run_enrichment.R
+Rscript scripts/plot_deseq2.R
+```
 
-<p align="center">
-  <img src="results/plots/pca_plot.png" width="48%" alt="PCA Plot" />
-  <img src="results/plots/volcano_plot.png" width="48%" alt="Volcano Plot" />
-</p>
-<p align="center">
-  <img src="results/plots/enrichment_GO_BP_dotplot.png" width="48%" alt="GO Enrichment" />
-  <img src="results/plots/enrichment_KEGG_dotplot.png" width="48%" alt="KEGG Pathway" />
-</p>
+## Visualizations
 
-## 👩‍💻 Author & Contact
+### PCA of normalized expression
+
+![PCA of normalized sample expression](plots/pca.png)
+
+### Differential-expression overview
+
+![Volcano plot of DESeq2 results](plots/volcano.png)
+
+### Mean expression and fold change
+
+![MA plot of DESeq2 results](plots/ma.png)
+
+### Expression pattern of selected genes
+
+![Heatmap of selected differentially expressed genes](plots/heatmap_top_genes.png)
+
+## Author
 
 **Narges Shayesteh**  
-*Biophysical & Bioinformatics Scientist | Specializing in NGS Data Pipelines & Drug Discovery*  
-* **GitHub:** [@shayesteh68](https://github.com/shayesteh68)  
-* **LinkedIn:** [Narges Shayesteh](https://www.linkedin.com/in/shayesteh)
+Biophysical & Bioinformatics Scientist | Specializing in NGS Data Pipelines & Drug Discovery
+
+- GitHub: [@shayesteh68](https://github.com/shayesteh68)
+- LinkedIn: [Narges Shayesteh](https://www.linkedin.com/in/narges-shayesteh)
