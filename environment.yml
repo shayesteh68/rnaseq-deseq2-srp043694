@@ -1,13 +1,17 @@
-name: bulk-rnaseq-env
+name: rnaseq-srp043694
 channels:
   - conda-forge
   - bioconda
-  - defaults
 dependencies:
-  - r-base>=4.3
+  - curl
+  - fastp
+  - hisat2
+  - samtools
+  - subread
+  - r-base=4.3
   - bioconductor-deseq2
   - bioconductor-clusterprofiler
   - bioconductor-org.hs.eg.db
-  - r-pheatmap
+  - bioconductor-enrichplot
   - r-ggplot2
-  - r-enhancedvolcano
+  - r-pheatmap

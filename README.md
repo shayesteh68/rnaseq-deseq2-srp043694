@@ -1,100 +1,53 @@
-# 🧬 End-to-End Bulk RNA-Seq Analysis Pipeline (SRP043694)
+# Bulk RNA-seq: SRP043694
 
-![Pipeline Status](https://img.shields.io/badge/Pipeline-Production--Ready-success?style=for-the-badge&logo=gnubash)
-![R Version](https://img.shields.io/badge/R-4.3%2B-blue?style=for-the-badge&logo=r)
-![Bioconductor](https://img.shields.io/badge/Bioconductor-DESeq2-brightgreen?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-orange?style=for-the-badge)
+This workflow processes the 14 samples in `metadata/sample_sheet.tsv` (7 LGD and 7 SIM). It retrieves paired FASTQs when needed, trims reads, aligns them, counts exon-overlapping fragments, and performs DESeq2 and enrichment analyses.
 
-A robust, reproducible, and automated bulk RNA-Seq pipeline for Differential Expression Analysis (DEA) and functional pathway enrichment, profiling disease progression in **Barrett's Esophagus** ($n = 14$).
+## Inputs and reference
 
-## Key Results
+FASTQs are stored in `raw_fastq/` as `SAMPLE_1.fastq.gz` and `SAMPLE_2.fastq.gz`. Their ENA paths are in the sample sheet. `scripts/00_download_fastq.sh` downloads missing files and checks gzip integrity; valid local copies are skipped.
 
-| Finding | Result |
-| --- | --- |
-| Total Features Filtered | 24,115 genes |
-| Statistically Significant DEGs | 142 genes |
-| Upregulated in SIM | 90 genes |
-| Downregulated in SIM | 52 genes |
-| Top Enriched GO Terms | Keratinization, Epithelial Development |
-| Top KEGG Pathways | ECM-receptor interaction, Focal adhesion |
+Build or obtain a GRCh38 HISAT2 index and a matching Ensembl release 110 GTF (the release recorded in the original featureCounts command). Set `HISAT2_INDEX` to the index prefix, `REF_GTF` to the annotation path, and optionally `THREADS` (default 2).
 
-## Repository Structure
+## Environment
 
-```text
-.
-├── scripts/
-│   ├── 01_fastp.sh
-│   ├── 02_hisat2_sort.sh
-│   ├── config.example.sh
-│   ├── run_deseq2.R
-│   ├── run_enrichment.R
-│   └── plot_deseq2.R
-├── plots/
-│   ├── pca.png
-│   ├── volcano.png
-│   ├── ma.png
-│   └── heatmap_top_genes.png
-├── tables/
-└── README.md
-```
-
-## Requirements
-
-- Bash
-- R 4.3 or later
-- Bioconductor and DESeq2
-- fastp
-- HISAT2 and samtools
-- R packages required by the analysis and enrichment scripts
-
-## Execution
-
-Run the commands from the repository root. Configure paths, sample information, reference genome, and annotation in a local copy of `scripts/config.example.sh` before running the upstream processing scripts.
-
-### 1. Configure and run read quality control
+Use Linux or WSL with Conda/Mamba:
 
 ```bash
-cp scripts/config.example.sh scripts/config.sh
-# Edit scripts/config.sh for your input files, output directories, and reference settings.
+conda env create -f environment.yml
+conda activate rnaseq-srp043694
+```
+
+## Pipeline
+
+Run from the repository root. First copy the example configuration, set the local reference paths in it, and source it in the same shell:
+
+```bash
+cp scripts/config.example.sh scripts/config.local.sh
+# Edit scripts/config.local.sh with the local reference paths.
+source scripts/config.local.sh
+bash scripts/00_download_fastq.sh
 bash scripts/01_fastp.sh
-```
-
-### 2. Align reads and sort alignments
-
-```bash
 bash scripts/02_hisat2_sort.sh
-```
-
-### 3. Run differential expression, enrichment, and visualization
-
-```bash
+bash scripts/03_featurecounts_matrix.sh
 Rscript scripts/run_deseq2.R
 Rscript scripts/run_enrichment.R
 Rscript scripts/plot_deseq2.R
 ```
 
-## Visualizations
+The featureCounts step requires both mates to map, excludes chimeric fragments, and counts read pairs. Its matrix excludes summary rows beginning with `__`. Enrichment separates genes higher and lower in SIM and uses all tested genes as background. Confirm the sample sheet and study design before interpreting the `~ condition` contrast as independent biological samples.
 
-### PCA of normalized expression
+The tracked `results/deseq2/summary.txt` reports 23,551 genes after filtering and 136 significant genes at `padj < 0.05` and `|log2FC| >= 1` (52 higher and 84 lower in SIM). These are historical outputs and have not been regenerated during this audit.
 
-![PCA of normalized sample expression](plots/pca.png)
+Code is licensed under the MIT License; see [LICENSE](LICENSE).
 
-### Differential-expression overview
+## Configuration and reruns
 
-![Volcano plot of DESeq2 results](plots/volcano.png)
+`scripts/config.local.sh` is a machine-specific local file and is ignored by Git. `PROJECT_ROOT` selects the project directory; the older `PROJECT` variable is also accepted. Run the R steps from the repository root.
 
-### Mean expression and fold change
+Trimming publishes outputs only after fastp succeeds and gzip validation passes. A completion marker is required to reuse trimming outputs. Existing outputs without a marker must be inspected and moved aside or processed into a separate output directory. Alignment writes a temporary BAM and checks it before publishing. Reuse checks detect incomplete files, but do not establish that the reference, inputs, or parameters are unchanged; use fresh output directories when changing them.
 
-![MA plot of DESeq2 results](plots/ma.png)
+`STRANDNESS` accepts 0, 1, or 2. Count filenames include that value. For a value other than 0, export `COUNTS_FILE` to the resulting matrix before DESeq2. Fragment counting uses `-p --countReadPairs`; the historical command lacked `--countReadPairs`, so old outputs do not demonstrate the corrected counting workflow. Plotting uses the fitted `results/deseq2/dds.rds` produced by the same analysis.
 
-### Expression pattern of selected genes
+The study design and sample independence still require confirmation from the study metadata. Rerunning does not validate those assumptions.
 
-![Heatmap of selected differentially expressed genes](plots/heatmap_top_genes.png)
-
-## Author
-
-**Narges Shayesteh**  
-Biophysical & Bioinformatics Scientist | Specializing in NGS Data Pipelines & Drug Discovery
-
-- GitHub: [@shayesteh68](https://github.com/shayesteh68)
-- LinkedIn: [Narges Shayesteh](https://www.linkedin.com/in/narges-shayesteh)
+Author: Narges Shayesteh.

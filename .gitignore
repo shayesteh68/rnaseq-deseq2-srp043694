@@ -12,6 +12,7 @@ qc/
 # Intermediate workflow logs and cache
 logs/
 .snakemake/
+scripts/config.local.sh
 .RData
 .Rhistory
 
