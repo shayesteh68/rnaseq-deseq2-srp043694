@@ -1,3 +1,1 @@
-"category","subcategory","ID","Description","GeneRatio","BgRatio","RichFactor","FoldEnrichment","zScore","pvalue","p.adjust","qvalue","geneID","Count"
-"Organismal Systems","Circulatory system","hsa04270","Vascular smooth muscle contraction","6/58","135/9451",0.0444444444444444,7.24214559386973,5.74002492518349,0.000167217206968458,0.0250825810452688,0.0242904995385761,"ACTG2/MYLK/CALD1/ACTA2/AVPR1A/MYH11",6
-"Organismal Systems","Digestive system","hsa04974","Protein digestion and absorption","5/58","103/9451",0.0485436893203883,7.91011047874121,5.54079383880805,0.000404147708163476,0.0303110781122607,0.0293538861718735,"COL8A1/COL6A6/COL25A1/COL14A1/PGA4",5
+"direction","Description"

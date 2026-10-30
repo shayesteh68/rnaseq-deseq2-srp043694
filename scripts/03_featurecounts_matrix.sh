@@ -24,6 +24,15 @@ work="$(mktemp -d "$COUNTS_DIR/.featurecounts.XXXXXX")"
 cleanup() { rm -f -- "$work/counts.txt" "$work/counts.txt.summary" "$work/matrix.tsv"; rmdir -- "$work" 2>/dev/null || true; }
 trap cleanup EXIT
 featureCounts -T "$THREADS" -a "$REF_GTF" -o "$work/counts.txt" -t exon -g gene_id -s "$STRANDNESS" -p --countReadPairs -B -C "${bams[@]}"
+fc_version="$(sed -n '1s/^# Program:featureCounts v\([^;]*\);.*/\1/p' "$work/counts.txt")"
+[[ -n "$fc_version" ]] || { echo "ERROR: could not identify featureCounts version in its output." >&2; exit 1; }
+# Keep useful provenance while removing machine-specific reference, output, and BAM paths.
+{
+  printf '# Program:featureCounts v%s; Command: -T %s -t exon -g gene_id -s %s -p --countReadPairs -B -C; Annotation: %s; Samples: %s\n' \
+    "$fc_version" "$THREADS" "$STRANDNESS" "$(basename "$REF_GTF")" "$sample_csv"
+  tail -n +2 "$work/counts.txt"
+} > "$work/counts.portable.txt"
+mv -- "$work/counts.portable.txt" "$work/counts.txt"
 awk -F '\t' -v OFS='\t' -v sample_csv="$sample_csv" '
 BEGIN {
   n=split(sample_csv,samples,","); printf "gene_id"

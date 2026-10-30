@@ -1,0 +1,13 @@
+Directional enrichment using ashr-shrunken log2 fold changes.
+Candidate threshold: DESeq2 Wald padj < 0.05 and |shrunken log2FC| >= 1.
+A separate formal |log2FC| > 1 test is reported in results/deseq2/summary.txt.
+DESeq2 result rows supplied: 20842
+Unique tested Entrez background IDs: 17743
+Ensembl IDs that failed Entrez mapping: 3262
+upregulated_SIM: 16 candidate Ensembl genes; 18 unique Entrez genes.
+upregulated_SIM: GO BP terms passing cutoffs = 0.
+upregulated_SIM: KEGG terms passing cutoffs = 0.
+downregulated_SIM: 28 candidate Ensembl genes; 28 unique Entrez genes.
+downregulated_SIM: GO BP terms passing cutoffs = 227.
+downregulated_SIM: KEGG terms passing cutoffs = 0.
+KEGG uses the live KEGG REST service; results can change when the pathway database changes.

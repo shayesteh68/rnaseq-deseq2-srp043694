@@ -1,7 +1,11 @@
 === DESeq2 Analysis Summary ===
-Total genes after low-count filtering: 23551
-Significant DEGs (padj < 0.05, |log2FC| >= 1): 136
-Upregulated in SIM: 52
-Downregulated in SIM: 84
+Samples analyzed: 14 (LGD=7, SIM=7)
+Genes after low-count filtering: 20842
 Design: ~ condition
-Contrast: SIM vs LGD (Ref: LGD)
+Contrast: SIM vs LGD (reference: LGD)
+Wald-test p-values and padj test a non-zero log2 fold change.
+MLE candidate filter (padj < 0.05, |MLE log2FC| >= 1): 147
+ashr-shrunken candidate filter (padj < 0.05, |shrunken log2FC| >= 1): 44 (up in SIM: 16; down in SIM: 28)
+Formal Wald test of |log2FC| > 1 at BH padj < 0.05: 1
+Reported log2FoldChange is ashr-shrunken; log2FoldChange_MLE and lfcSE_MLE preserve the unshrunken estimates.
+The formal threshold-test results are in padj_lfc_gt_1 and deg_formal_lfc_gt_1_SIM_vs_LGD.csv.
