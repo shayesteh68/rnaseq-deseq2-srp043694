@@ -2,6 +2,10 @@
 
 This workflow processes the 14 samples in `metadata/sample_sheet.tsv` (7 LGD and 7 SIM). It retrieves paired FASTQs when needed, trims reads, aligns them, counts exon-overlapping fragments, and performs DESeq2 and enrichment analyses.
 
+## Source record and relationship to published work
+
+This is an independent analysis of the 14 LGD and SIM samples from GEO series [GSE58963](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE58963), titled “IL-1β and SERPINA3 are markers of an aggressive Barrett’s Oesophagus phenotype identified using mRNA sequencing.” GEO lists no linked publication citation for this series (checked 2026-10-31), so this repository does not claim to reproduce a peer-reviewed article. The analysis was not commissioned by, or conducted in collaboration with, the data submitters or their institutions.
+
 ## Inputs and reference
 
 FASTQs are stored in `raw_fastq/` as `SAMPLE_1.fastq.gz` and `SAMPLE_2.fastq.gz`. Their ENA paths are in the sample sheet; `metadata/fastq_manifest.tsv` records the expected byte counts and MD5 checksums from ENA. `scripts/00_download_fastq.sh` checks size, MD5, and gzip integrity before reusing or publishing a file. Existing files that fail validation are preserved; use a clean `RAW_FASTQ_DIR` to retrieve verified replacements.
